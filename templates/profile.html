@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MentorMind AI - Profile</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="{{ url_for('dashboard') }}" class="logo">
+        MentorMind AI
+    </a>
+
+    <button class="menu-button" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links" id="mobileMenu">
+
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+        <a href="{{ url_for('interview') }}">Interview</a>
+
+        <a href="{{ url_for('coding') }}">Coding</a>
+
+        <a href="{{ url_for('resume') }}">Resume</a>
+
+        <a href="{{ url_for('skills') }}">Skills</a>
+
+        <a href="{{ url_for('profile') }}">Profile</a>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <div class="hero">
+
+        <h1>👤 My Profile</h1>
+
+        <p>
+            Manage your placement profile.
+        </p>
+
+    </div>
+
+    <div class="card"
+         style="max-width:700px; margin:0 auto;">
+
+        <h2>Profile Information</h2>
+
+        <br>
+
+        <form method="POST">
+
+            <label>Name</label>
+
+            <input
+                type="text"
+                name="name"
+                value="{{ user.name if user else '' }}"
+            >
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                name="email"
+                value="{{ user.email if user else '' }}"
+            >
+
+            <button type="submit">
+                Save Profile
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+<script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileMenu");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+</body>
+
+</html>

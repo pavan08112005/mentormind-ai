@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MentorMind AI - Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="{{ url_for('dashboard') }}" class="logo">
+        MentorMind AI
+    </a>
+
+    <button class="menu-button" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links" id="mobileMenu">
+
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('interview') }}">Interview</a>
+        <a href="{{ url_for('coding') }}">Coding</a>
+        <a href="{{ url_for('resume') }}">Resume</a>
+        <a href="{{ url_for('skills') }}">Skills</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <section class="hero">
+
+        <h1>
+            Welcome to MentorMind AI 👋
+        </h1>
+
+        <p>
+            Your AI-powered placement preparation platform.
+        </p>
+
+    </section>
+
+    <div class="stat-grid">
+
+        <div class="stat">
+
+            <h2>{{ resume_score }}%</h2>
+
+            <p>
+                Resume Score
+            </p>
+
+        </div>
+
+        <div class="stat">
+
+            <h2>{{ skills_count }}</h2>
+
+            <p>
+                Skills
+            </p>
+
+        </div>
+
+        <div class="stat">
+
+            <h2>AI</h2>
+
+            <p>
+                Placement Mentor
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="card-grid">
+
+        <div class="card">
+
+            <h2>📄 Resume Analyzer</h2>
+
+            <p>
+                Upload your resume and get a technical
+                resume score.
+            </p>
+
+            <br>
+
+            <a href="{{ url_for('resume') }}">
+                Analyze Resume →
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🎤 Interview Practice</h2>
+
+            <p>
+                Practice technical interview questions
+                and receive feedback.
+            </p>
+
+            <br>
+
+            <a href="{{ url_for('interview') }}">
+                Start Interview →
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h2>💻 Coding Practice</h2>
+
+            <p>
+                Practice Python problems for technical
+                interviews.
+            </p>
+
+            <br>
+
+            <a href="{{ url_for('coding') }}">
+                Practice Coding →
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🧠 Skills</h2>
+
+            <p>
+                Track the technical skills you're
+                learning.
+            </p>
+
+            <br>
+
+            <a href="{{ url_for('skills') }}">
+                Manage Skills →
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h2>👤 Profile</h2>
+
+            <p>
+                View and manage your MentorMind profile.
+            </p>
+
+            <br>
+
+            <a href="{{ url_for('profile') }}">
+                View Profile →
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+
+    MentorMind AI © 2026
+
+</footer>
+<script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileMenu");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+</body>
+
+</html>

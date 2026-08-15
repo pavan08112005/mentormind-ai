@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MentorMind AI - Resume Review</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="{{ url_for('dashboard') }}" class="logo">
+        MentorMind AI
+    </a>
+
+    <button class="menu-button" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links" id="mobileMenu">
+
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+        <a href="{{ url_for('interview') }}">Interview</a>
+
+        <a href="{{ url_for('coding') }}">Coding</a>
+
+        <a href="{{ url_for('resume') }}">Resume</a>
+
+        <a href="{{ url_for('skills') }}">Skills</a>
+
+        <a href="{{ url_for('profile') }}">Profile</a>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <div class="hero">
+
+        <h1>📊 Resume Review</h1>
+
+        <p>
+            Your resume analysis results.
+        </p>
+
+    </div>
+
+
+    {% if score is defined %}
+
+    <div class="result"
+         style="text-align:center; max-width:700px; margin:0 auto 30px;">
+
+        <h2>Resume Score</h2>
+
+        <div class="score">
+            {{ score }}%
+        </div>
+
+        <p>
+            Your resume placement readiness score.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    {% if keywords %}
+
+    <div class="card">
+
+        <h2>🔑 Detected Skills & Keywords</h2>
+
+        <br>
+
+        <div class="card-grid">
+
+            {% for keyword in keywords %}
+
+            <div class="card">
+
+                <h3>
+                    ✓ {{ keyword }}
+                </h3>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <br>
+
+    {% endif %}
+
+
+    {% if extracted_text %}
+
+    <div class="card">
+
+        <h2>📄 Extracted Resume Text</h2>
+
+        <br>
+
+        <pre>{{ extracted_text }}</pre>
+
+    </div>
+
+    {% endif %}
+
+
+    <br>
+
+    <div style="text-align:center;">
+
+        <a href="{{ url_for('resume') }}">
+            ← Analyze Another Resume
+        </a>
+
+    </div>
+
+</main>
+<script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileMenu");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+</body>
+
+</html>

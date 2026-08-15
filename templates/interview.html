@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MentorMind AI - AI Interview</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .interview-container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .question-card {
+            margin-bottom: 25px;
+        }
+
+        .question-number {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            resize: vertical;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #444;
+            background: #111;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .result-card {
+            margin-top: 30px;
+        }
+
+        .score {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .ai-feedback {
+            white-space: pre-wrap;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .question-select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="{{ url_for('dashboard') }}" class="logo">
+        MentorMind AI
+    </a>
+
+    <button class="menu-button" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links" id="mobileMenu">
+
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+        <a href="{{ url_for('interview') }}">Interview</a>
+
+        <a href="{{ url_for('coding') }}">Coding</a>
+
+        <a href="{{ url_for('resume') }}">Resume</a>
+
+        <a href="{{ url_for('skills') }}">Skills</a>
+
+        <a href="{{ url_for('profile') }}">Profile</a>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+
+    </div>
+
+</nav>
+
+
+<main class="container interview-container">
+
+
+    <div class="hero">
+
+        <h1>🧠 AI Interview Coach</h1>
+
+        <p>
+            Practice technical interview questions and receive
+            AI-powered feedback from MentorMind AI.
+        </p>
+
+    </div>
+
+
+    <!-- QUESTION FORM -->
+
+    <div class="card question-card">
+
+        <h2>Practice Interview</h2>
+
+        <p>
+            Select a question and write your answer.
+            Our AI interviewer will evaluate it.
+        </p>
+
+
+        <form method="POST"
+              action="{{ url_for('interview') }}">
+
+
+            <label for="question_id">
+                Interview Question
+            </label>
+
+
+            <select
+                name="question_id"
+                id="question_id"
+                class="question-select"
+                required
+            >
+
+                {% for question in questions %}
+
+                    <option value="{{ question.id }}">
+
+                        Question {{ question.id }}:
+                        {{ question.question }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <label for="answer">
+                Your Answer
+            </label>
+
+
+            <textarea
+                id="answer"
+                name="answer"
+                placeholder="Write your interview answer here..."
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="submit-button"
+            >
+                🤖 Evaluate My Answer
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+    <!-- AI RESULT -->
+
+    {% if result %}
+
+        <div class="card result-card">
+
+            <h2>🤖 AI Evaluation</h2>
+
+
+            <p>
+
+                <strong>Question:</strong>
+
+                {{ submitted_question }}
+
+            </p>
+
+
+            <div class="score">
+
+                {{ score }}/100
+
+            </div>
+
+
+            <h3>AI Feedback</h3>
+
+
+            <div class="ai-feedback">
+
+                {{ feedback }}
+
+            </div>
+
+
+        </div>
+
+    {% endif %}
+
+
+</main>
+<script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileMenu");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+
+</body>
+
+</html>

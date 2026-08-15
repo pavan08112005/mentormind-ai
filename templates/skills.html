@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MentorMind AI - Skills</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="{{ url_for('dashboard') }}" class="logo">
+        MentorMind AI
+    </a>
+
+    <button class="menu-button" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links" id="mobileMenu">
+
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+        <a href="{{ url_for('interview') }}">Interview</a>
+
+        <a href="{{ url_for('coding') }}">Coding</a>
+
+        <a href="{{ url_for('resume') }}">Resume</a>
+
+        <a href="{{ url_for('skills') }}">Skills</a>
+
+        <a href="{{ url_for('profile') }}">Profile</a>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <div class="hero">
+
+        <h1>🧠 My Skills</h1>
+
+        <p>
+            Track the technical skills you are learning.
+        </p>
+
+    </div>
+
+
+    <!-- ADD SKILL -->
+
+    <div class="card"
+         style="max-width:700px; margin:0 auto;">
+
+        <h2>Add Skill</h2>
+
+        <form method="POST">
+
+            <label for="skill_name">
+                Skill
+            </label>
+
+            <input
+                type="text"
+                id="skill_name"
+                name="skill_name"
+                placeholder="Example: Python"
+                required
+            >
+
+            <label for="skill_level">
+                Skill Level
+            </label>
+
+            <select
+                id="skill_level"
+                name="skill_level"
+                required
+            >
+
+                <option value="1">Beginner</option>
+                <option value="2">Basic</option>
+                <option value="3">Intermediate</option>
+                <option value="4">Advanced</option>
+                <option value="5">Expert</option>
+
+            </select>
+
+            <button type="submit">
+                Add Skill
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- SAVED SKILLS -->
+
+    {% if skills %}
+
+        <div class="card-grid">
+
+            {% for skill in skills %}
+
+                <div class="card">
+
+                    <h3>
+                        🧠 {{ skill.skill_name }}
+                    </h3>
+
+                    <p>
+                        Skill Level:
+                        {{ skill.skill_level }}/5
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="card">
+
+            <h3>No skills added yet.</h3>
+
+            <p>
+                Add your first technical skill above.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</main>
+
+
+<script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileMenu");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+
+</body>
+
+</html>

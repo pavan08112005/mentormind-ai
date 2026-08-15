@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MentorMind AI - Coding Practice</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="{{ url_for('dashboard') }}" class="logo">
+        MentorMind AI
+    </a>
+
+    <button class="menu-button" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links" id="mobileMenu">
+
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+        <a href="{{ url_for('interview') }}">Interview</a>
+
+        <a href="{{ url_for('coding') }}">Coding</a>
+
+        <a href="{{ url_for('resume') }}">Resume</a>
+
+        <a href="{{ url_for('skills') }}">Skills</a>
+
+        <a href="{{ url_for('profile') }}">Profile</a>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+    <div class="hero">
+
+        <h1>Coding Practice</h1>
+
+        <p>
+            Solve Python problems and prepare for coding interviews.
+        </p>
+
+    </div>
+
+
+    {% if result %}
+
+    <div class="result">
+
+        <h2>Execution Result</h2>
+
+        {% if success %}
+
+        <p>
+            Code executed successfully.
+        </p>
+
+        {% else %}
+
+        <p>
+            Code execution failed.
+        </p>
+
+        {% endif %}
+
+
+        <pre>{{ output }}</pre>
+
+    </div>
+    {% if ai_feedback %}
+
+<div class="card">
+
+    <h2>🤖 AI Code Coach</h2>
+
+    <h3>{{ ai_feedback.overall }}</h3>
+
+    <p>
+        <strong>Score:</strong>
+        {{ ai_feedback.score }}/100
+    </p>
+
+    <h3>Strengths</h3>
+
+    <ul>
+
+        {% for strength in ai_feedback.strengths %}
+
+        <li>{{ strength }}</li>
+
+        {% endfor %}
+
+    </ul>
+
+
+    <h3>Suggestions</h3>
+
+    <ul>
+
+        {% for suggestion in ai_feedback.suggestions %}
+
+        <li>{{ suggestion }}</li>
+
+        {% endfor %}
+
+    </ul>
+
+
+    <h3>Complexity</h3>
+
+    <p>
+        {{ ai_feedback.complexity }}
+    </p>
+
+</div>
+
+{% endif %}
+
+    {% endif %}
+
+
+    <div class="card">
+
+        <h2>Coding Questions</h2>
+
+        {% for question in questions %}
+
+        <div class="card">
+
+            <h3>
+                {{ question.id }}. {{ question.title }}
+            </h3>
+
+            <p>
+                {{ question.description }}
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Submit Your Python Code</h2>
+
+        <form method="POST">
+            <label for="question_id">
+    Select Question
+</label>
+
+<select id="question_id" name="question_id" required>
+
+    {% for question in questions %}
+
+    <option value="{{ question.id }}">
+        {{ question.id }}. {{ question.title }}
+    </option>
+
+    {% endfor %}
+
+</select>
+
+            <label for="code">
+                Python Code
+            </label>
+
+            <textarea
+                id="code"
+                name="code"
+                rows="15"
+                placeholder="Write your Python code here..."
+                required></textarea>
+
+            <button type="submit">
+                Run Code
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+<script>
+
+function toggleMenu() {
+
+    const menu = document.getElementById("mobileMenu");
+
+    menu.classList.toggle("active");
+
+}
+
+</script>
+</body>
+
+</html>
