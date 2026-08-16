@@ -1708,21 +1708,26 @@ def db_test():
             "error": str(e)
         }, 500
 
-    # Test MySQL
+    # Test MySQL and list tables
     try:
-
         connection = get_db_connection()
 
+        cursor = connection.cursor()
+        cursor.execute("SHOW TABLES")
+
+        tables = [row[0] for row in cursor.fetchall()]
+
+        cursor.close()
         connection.close()
 
         return {
             "status": "SUCCESS",
             "message": "Render can connect to Aiven MySQL.",
-            "resolved_ip": ip
+            "resolved_ip": ip,
+            "tables": tables
         }
 
     except Exception as e:
-
         return {
             "status": "FAILED",
             "stage": "MYSQL",
