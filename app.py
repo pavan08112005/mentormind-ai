@@ -1669,7 +1669,65 @@ def health():
         "application": "MentorMind AI"
     }
 
+# =========================================================
+# TEMPORARY DATABASE TEST
+# =========================================================
 
+@app.route("/db-test")
+def db_test():
+
+    import socket
+
+    host = os.getenv("DB_HOST")
+    port = int(os.getenv("DB_PORT", "3306"))
+
+    # Test DNS
+    try:
+        ip = socket.gethostbyname(host)
+    except Exception as e:
+        return {
+            "status": "FAILED",
+            "stage": "DNS",
+            "error": str(e)
+        }, 500
+
+    # Test TCP connection
+    try:
+        sock = socket.create_connection(
+            (host, port),
+            timeout=10
+        )
+        sock.close()
+    except Exception as e:
+        return {
+            "status": "FAILED",
+            "stage": "TCP",
+            "host": host,
+            "port": port,
+            "resolved_ip": ip,
+            "error": str(e)
+        }, 500
+
+    # Test MySQL
+    try:
+
+        connection = get_db_connection()
+
+        connection.close()
+
+        return {
+            "status": "SUCCESS",
+            "message": "Render can connect to Aiven MySQL.",
+            "resolved_ip": ip
+        }
+
+    except Exception as e:
+
+        return {
+            "status": "FAILED",
+            "stage": "MYSQL",
+            "error": str(e)
+        }, 500
 # =========================================================
 # RUN APPLICATION
 # =========================================================
